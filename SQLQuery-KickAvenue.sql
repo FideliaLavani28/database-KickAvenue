@@ -265,31 +265,3 @@ WHERE CName LIKE '% % %'
 SELECT COUNT(*) AS CustomerNameWith3orMoreWords
 FROM Customer
 WHERE LEN(SUBSTRING(TRIM(CName),' ',1))>0--WHERE CName NOT LIKE '% %'
-
-
---------------------------------------------------
-
-DECLARE @CustomerID VARCHAR(5)
-DECLARE @CustomerName CHAR(50)
-DECLARE @MemberType CHAR(8)
-
-DECLARE CursorGoldMember CURSOR
-FOR SELECT CustomerID, CustomerName, MemberType
-FROM Customer
-
-OPEN CursorGoldMember
-
-FETCH NEXT FROM CursorGoldMember 
-INTO @CustomerID, @CustomerName, @MemberType
-
-WHILE @@FETCH_STATUS=0
-	BEGIN 
-		IF (@MemberType='Gold')
-			PRINT @CustomerID + @CustomerName + CONCAT(@MemberType,' membership')
-			FETCH NEXT FROM CursorGoldMember 
-			INTO @CustomerID, @CustomerName, @MemberType
-	END
-
-CLOSE CursorGoldMember
-DEALLOCATE CursorGoldMember
---Declare variable yang digunakan dalam Cursor
