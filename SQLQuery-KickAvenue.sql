@@ -222,8 +222,7 @@ JOIN Inventory i ON i.ProductID = od.ProductID,(
            SELECT avg(Qty) AS [AverageQuantity]
            FROM OrderDetail
 )a
-GROUP BY c.CName, c.Email, i.ProductID, a.AverageQuantity, od.Qty
-HAVING a.AverageQuantity < od.Qty
+WHERE a.AverageQuantity < od.Qty
 ORDER BY ProductID ASC
 
 SELECT * FROM Inventory
