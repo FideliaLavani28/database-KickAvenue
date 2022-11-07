@@ -215,10 +215,8 @@ FROM Customer c JOIN COrder CO ON c.Email=CO.Email JOIN OrderDetail od ON od.Ord
 WHERE Province IN ('Bali','Aceh')
 GROUP BY CName
 
-SELECT c.CName, c.Email , i.ProductID, od.Qty
-FROM Customer c JOIN COrder co ON c.Email = co.Email
-JOIN OrderDetail od ON co.OrderID = od.OrderID 
-JOIN Inventory i ON i.ProductID = od.ProductID,(
+SELECT c.CName, c.Email , od.ProductID, od.Qty
+FROM Customer c JOIN COrder co ON c.Email = co.Email JOIN OrderDetail od ON co.OrderID = od.OrderID,(
            SELECT avg(Qty) AS [AverageQuantity]
            FROM OrderDetail
 )a
